@@ -1,5 +1,0 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8028: O diretório intermediário (x64\Debug\) contém arquivos compartilhados de outro projeto (testAgain.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
-  main.cpp
-C:\Users\mateu\Documents\Desenvolvimento\Projetos\bank_system\testAgain\main.cpp(45,61): warning C4244: '=': conversão de 'double' para 'int', possível perda de dados
-C:\Users\mateu\Documents\Desenvolvimento\Projetos\bank_system\testAgain\main.cpp(61,61): warning C4244: '=': conversão de 'double' para 'int', possível perda de dados
-  testAgain.vcxproj -> C:\Users\mateu\Documents\Desenvolvimento\Projetos\bank_system\x64\Debug\bank_system.exe
