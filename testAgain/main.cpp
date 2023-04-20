@@ -2,79 +2,79 @@
 
 using namespace std;
 
-class Cliente {
+class Client {
 public:
     // Setters
-    void setSaldo(double s) { saldo = s; }
-    void setNome(string n) { nome = n; }
-    void setNconta(int n) { nConta = n; }
-    void setAgencia(int a) { agencia = a; }
+    void setBlance(double s) { balance = s; }
+    void setName(string n) { name = n; }
+    void setNAccount(int n) { nAccount = n; }
+    void setAgency(int a) { agency = a; }
 
     // Getters
-    double getSaldo() { return saldo; }
-    string getNome() { return nome; }
-    int getNconta() { return nConta; }
-    int getAgencia() { return agencia; }
+    double getBalance() { return balance; }
+    string getName() { return name; }
+    int getNAccount() { return nAccount; }
+    int getAgency() { return agency; }
 private:
-    double saldo;
-    string nome;
-    int nConta;
-    int agencia;
+    double balance;
+    string name;
+    int nAccount;
+    int agency;
 };
 
-void menuUser(Cliente cliente[], int usuarioAtivo) {
+void menuUser(Client client[], int activeUser) {
     char op;
     do
     {
         system("cls");
         cout << ">>>> MENU <<<<" << endl;
-        cout << "1 - Saque" << endl;
-        cout << "2 - Deposito" << endl;
-        cout << "3 - Saldo" << endl;
-        cout << "4 - Sair" << endl;
-        cout << "Insira sua opcao" << endl;
+        cout << "1 - Withdraw" << endl;
+        cout << "2 - Deposit" << endl;
+        cout << "3 - Balance" << endl;
+        cout << "4 - Exit" << endl;
+        cout << "Insert your option" << endl;
         cin >> op;
         double entry;
         int temp;
         switch (op)
         {
-        case '1': cout << "SAQUE" << endl;
-            cout << "Insira quanto deseja sacar" << endl;
+        case '1': cout << "WITHDRAW" << endl;
+            cout << "Insert the amount for withdraw" << endl;
             cin >> entry;
-            if (entry < cliente[usuarioAtivo - 1].getSaldo() + 1) {
-                temp = cliente[usuarioAtivo - 1].getSaldo() - entry;
-                cliente[usuarioAtivo - 1].setSaldo(temp);
-                cout << "Novo saldo: " << temp << endl;
+            if (entry < client[activeUser - 1].getBalance() + 1) {
+                temp = client[activeUser - 1].getBalance() - entry;
+                client[activeUser - 1].setBlance(temp);
+                cout << "New balance: " << temp << endl;
             }
             else
-                cout << "Saldo insuficiente" << endl;
+                cout << "Not enough balance" << endl;
             system("pause");
             break;
 
-        case '2': cout << "DEPOSITO" << endl;
-            cout << "Insira quanto deseja depositar" << endl;
+        case '2': cout << "DEPOSIT" << endl;
+            cout << "Insert the amount for deposit" << endl;
             cin >> entry;
             if (entry < 0) {
-                cout << "Entrada invalida!" << endl;
+                cout << "Invalid entry" << endl;
             }
             else {
-                temp = cliente[usuarioAtivo - 1].getSaldo() + entry;
-                cliente[usuarioAtivo - 1].setSaldo(temp);
-                cout << "Novo saldo: " << temp << endl;
+                temp = client[activeUser - 1].getBalance() + entry;
+                client[activeUser - 1].setBlance(temp);
+                cout << "New balance: " << temp << endl;
             }
             system("pause");
             break;
 
-        case '3': cout << "SALDO" << endl;
-            cout << "Seu saldo atual: " << cliente[usuarioAtivo - 1].getSaldo() << endl;
+        case '3': cout << "BALANCE" << endl;
+            cout << "Your current balance: " << client[activeUser - 1].getBalance() << endl;
             system("pause");
             break;
 
-        case '4': cout << "Nosso banco agradece nossa visita" << endl;
+        case '4': cout << "Out bank appreciate your visit!" << endl;
             system("pause");
             break;
 
-        default: cout << "Opcao Invalida! Tente Novamente" << endl;
+        default: cout << "Invalid option! Try again" << endl;
             system("pause");
             break;
         }
@@ -87,26 +87,26 @@ void menuWelcome() {
 
 int main()
 {
-    Cliente cliente[2];
-    int usuarioAtivo;
+    Client client[2];
+    int activeUser;
 
-    cliente[0].setNome("Mateus");
-    cliente[0].setNconta(1);
-    cliente[0].setAgencia(1);
-    cliente[0].setSaldo(0.0);
+    client[0].setName("Mateus");
+    client[0].setNAccount(1);
+    client[0].setAgency(1);
+    client[0].setBlance(0.0);
 
-    cliente[1].setNome("Julia");
-    cliente[1].setNconta(2);
-    cliente[1].setAgencia(1);
-    cliente[1].setSaldo(0.0);
+    client[1].setName("Julia");
+    client[1].setNAccount(2);
+    client[1].setAgency(1);
+    client[1].setBlance(0.0);
 
-    cout << "Informe o numero da conta: ";
-    cin >> usuarioAtivo;
-    string nome = cliente[usuarioAtivo - 1].getNome();
-    cout << "Ola, " << nome << endl;
+    cout << "Inform your account number: ";
+    cin >> activeUser;
+    string nome = client[activeUser - 1].getName();
+    cout << "Hello, " << nome << endl;
     system("pause");
 
-    menuUser(cliente, usuarioAtivo);
+    menuUser(client, activeUser);
 
     return 0;
 }
