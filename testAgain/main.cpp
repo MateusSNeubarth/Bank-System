@@ -1,28 +1,50 @@
 #include <iostream>
+#include <vector>
+#include "Client.h"
 
 using namespace std;
 
-class Client {
-public:
-    // Setters
-    void setBlance(double s) { balance = s; }
-    void setName(string n) { name = n; }
-    void setNAccount(int n) { nAccount = n; }
-    void setAgency(int a) { agency = a; }
+bool passCheck(string pass) {
+    string spChar = "!@#$%&*";
+    string nums = "1234567890";
 
-    // Getters
-    double getBalance() { return balance; }
-    string getName() { return name; }
-    int getNAccount() { return nAccount; }
-    int getAgency() { return agency; }
-private:
-    double balance;
-    string name;
-    int nAccount;
-    int agency;
-};
+    bool hasSpChar = false;
+    bool hasUpper = false;
+    bool hasNum = false;
+    bool withinRange = false;
 
-void menuUser(Client client[], int activeUser) {
+    for (int i = 0; i < pass.size(); i++) {
+        //check for special character
+        for (int j = 0; j < spChar.size(); j++) {
+            if (pass[i] == spChar[j])
+                hasSpChar = true;
+        }
+
+        //check for upper case letter
+        if (isupper(pass[i])) {
+            hasUpper = true;
+        }
+
+        //check for number
+        for (int n = 0; n < nums.size(); n++) {
+            if (pass[i] == nums[n])
+                hasNum = true;
+        }
+
+    }
+    //check size of password is within range
+    if (pass.size() >= 8 && pass.size() <= 16)
+        withinRange = true;
+
+    if (!hasSpChar || !hasUpper || !hasNum || !withinRange) {
+        cout << "Your password does not compete to the requisites" << endl;
+        return false;
+    }
+    else
+        return true;
+}
+
+void menuUser(Client client) {
     char op;
     do
     {
@@ -41,9 +63,9 @@ void menuUser(Client client[], int activeUser) {
         case '1': cout << "WITHDRAW" << endl;
             cout << "Insert the amount for withdraw" << endl;
             cin >> entry;
-            if (entry < client[activeUser - 1].getBalance() + 1) {
-                temp = client[activeUser - 1].getBalance() - entry;
-                client[activeUser - 1].setBlance(temp);
+            if (entry < client.getBalance() + 1) {
+                temp = client.getBalance() - entry;
+                client.setBalance(temp);
                 cout << "New balance: " << temp << endl;
             }
             else
@@ -58,15 +80,15 @@ void menuUser(Client client[], int activeUser) {
                 cout << "Invalid entry" << endl;
             }
             else {
-                temp = client[activeUser - 1].getBalance() + entry;
-                client[activeUser - 1].setBlance(temp);
+                temp = client.getBalance() + entry;
+                client.setBalance(temp);
                 cout << "New balance: " << temp << endl;
             }
             system("pause");
             break;
 
         case '3': cout << "BALANCE" << endl;
-            cout << "Your current balance: " << client[activeUser - 1].getBalance() << endl;
+            cout << "Your current balance: " << client.getBalance() << endl;
             system("pause");
             break;
 
@@ -82,31 +104,76 @@ void menuUser(Client client[], int activeUser) {
 }
 
 void menuWelcome() {
-    // to do
+    auto v = vector<Client>();
+    int called = 0;
+    char op;
+    do {
+        Client c;
+        cout << "Welcome to our bank" << endl;
+        cout << "1 - Log in" << endl;
+        cout << "2 - Sign in" << endl;
+        cout << "3 - Exit" << endl;
+        cin >> op;
+
+        switch (op) {
+        case '1': {
+            bool found = false;
+            string name;
+            string pass;
+            cout << "Name: ";
+            cin >> name;
+            cout << "Password: ";
+            cin >> pass;
+            for (int i = 0; i < v.size(); i++) {
+                if (v[i].getName() == name) {
+                    if (v[i].getPass() == pass)
+                        found = true;
+                        menuUser(v[i]);
+                    break;
+                }
+            }
+            if (!found)
+                cout << "User doesn't exist" << endl;
+            break;
+        }
+        case '2': {
+            called++;
+            string name;
+            string pass;
+            string agency;
+            cout << "Name: ";
+            cin >> name;
+            c.setName(name);
+            cout << "Agency: ";
+            cin >> agency;
+            c.setAgency(agency);
+            do {
+                cout << "Password: ";
+                cin >> pass;
+                if (passCheck(pass))
+                    c.setPass(pass);
+            } while (!passCheck(pass));
+            c.setNAccount(called);
+            c.setBalance(0.0);
+            v.push_back(c);
+            break;
+        }
+        case '3': {
+            cout << "Thanks for using our bank" << endl;
+            break;
+        }
+        default: 
+            cout << "Invalid entry! Try again" << endl;
+            break;
+        }
+
+    } while (op != '3');
+
 }
 
 int main()
 {
-    Client client[2];
-    int activeUser;
-
-    client[0].setName("Mateus");
-    client[0].setNAccount(1);
-    client[0].setAgency(1);
-    client[0].setBlance(0.0);
-
-    client[1].setName("Julia");
-    client[1].setNAccount(2);
-    client[1].setAgency(1);
-    client[1].setBlance(0.0);
-
-    cout << "Inform your account number: ";
-    cin >> activeUser;
-    string nome = client[activeUser - 1].getName();
-    cout << "Hello, " << nome << endl;
-    system("pause");
-
-    menuUser(client, activeUser);
+    menuWelcome();
 
     return 0;
 }

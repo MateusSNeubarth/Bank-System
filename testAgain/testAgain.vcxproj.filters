@@ -19,4 +19,9 @@
       <Filter>Source Folder</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h">
+      <Filter>Header Folder</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
