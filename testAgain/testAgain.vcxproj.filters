@@ -18,9 +18,18 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Folder</Filter>
     </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Source Folder</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Folder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
+      <Filter>Header Folder</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h">
       <Filter>Header Folder</Filter>
     </ClInclude>
   </ItemGroup>
